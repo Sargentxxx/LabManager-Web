@@ -322,53 +322,5 @@ function saveSale(details, type) {
     });
 }
 
-// Mercado Pago Integration
-document.addEventListener("DOMContentLoaded", function () {
-    // Inicializar Mercado Pago con tu PUBLIC KEY
-    // IMPORTANTE: Reemplaza 'TEST-TU-PUBLIC-KEY-AQUI' con tu Public Key real de Mercado Pago
-    // La puedes encontrar en: https://www.mercadopago.com.ar/developers/panel/credentials
-    
-    // NOTA: Si no configuras la PUBLIC KEY real, los botones no apareceran
-    try {
-        const mp = new MercadoPago('TEST-TU-PUBLIC-KEY-AQUI', {
-            locale: 'es-AR'
-        });
-
-        // Botón para Licencia Estándar
-        if (document.getElementById("wallet_container_standard")) {
-            mp.bricks().create("wallet", "wallet_container_standard", {
-                initialization: {
-                    preferenceId: 'TEST-PREFERENCE-ID-STANDARD', 
-                    redirectMode: "modal"
-                },
-                customization: {
-                    texts: { action: 'buy', valueProp: 'security_details' },
-                    visual: { buttonBackground: 'default', borderRadius: '16px' }
-                },
-                callbacks: {
-                    onSubmit: (formData) => {
-                        // En MP Bricks, la confirmación suele ser via Webhook, 
-                        // pero aquí podemos capturar el intento.
-                        console.log("Iniciando pago MP Estándar");
-                    }
-                }
-            });
-        }
-
-        // Botón para Licencia Pro
-        if (document.getElementById("wallet_container_pro")) {
-            mp.bricks().create("wallet", "wallet_container_pro", {
-                initialization: {
-                    preferenceId: 'TEST-PREFERENCE-ID-PRO',
-                    redirectMode: "modal"
-                },
-                customization: {
-                    texts: { action: 'buy', valueProp: 'security_details' },
-                    visual: { buttonBackground: 'black', borderRadius: '16px' }
-                }
-            });
-        }
-    } catch (error) {
-        console.warn("MercadoPago no configurado (Falta Key)");
-    }
-});
+// Mercado Pago - Links de Pago configurados en HTML
+console.log('Mercado Pago links ready');

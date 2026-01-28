@@ -883,3 +883,29 @@ body {
     font-size: 2rem;
   }
 }
+
+/* Mercado Pago Button Styles */
+.btn-mp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    background-color: #009EE3; /* MP Blue */
+    color: white;
+    font-weight: bold;
+    border-radius: 4px; /* MP Style */
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+}
+.btn-mp:hover {
+    background-color: #007EB5;
+}
+.btn-mp img {
+    height: 20px;
+    margin-right: 10px;
+    filter: brightness(0) invert(1);
+}
