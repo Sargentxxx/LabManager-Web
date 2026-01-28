@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Software profesional para gestión de talleres de reparación de computadoras. Controla órdenes, inventario, presupuestos y más."
+    />
+    <meta
+      name="keywords"
+      content="software taller, gestión reparaciones, taller computadoras, software técnico"
+    />
+    <title>LabManager - Software de Gestión para Talleres de Reparación</title>
+    <link rel="stylesheet" href="landing_styles.css" />
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="nav-brand">
+          <img
+            src="labmanager_logo.png"
+            alt="LabManager Logo"
+            class="brand-logo"
+            style="height: 32px; width: auto; margin-right: 10px"
+          />
+          <span class="brand-name">LabManager</span>
+        </div>
+        <div class="nav-links">
+          <a href="#features">Características</a>
+          <a href="#pricing">Precios</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact" class="btn-nav">Contacto</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1 class="hero-title">
+              Gestiona tu Taller de Reparación
+              <span class="gradient-text">Como un Profesional</span>
+            </h1>
+            <p class="hero-subtitle">
+              Software completo para controlar órdenes, clientes, inventario y
+              presupuestos. Todo en un solo lugar, sin complicaciones.
+            </p>
+            <div class="hero-buttons">
+              <a href="#download" class="btn btn-primary">
+                <span>Prueba Gratis 30 Días</span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path
+                    d="M4 10h12m0 0l-4-4m4 4l-4 4"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </a>
+              <a href="demo.html" class="btn btn-secondary">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                  />
+                </svg>
+                <span>Ver Demo</span>
+              </a>
+            </div>
+            <div class="hero-stats">
+              <div class="stat">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Talleres Activos</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number">10,000+</div>
+                <div class="stat-label">Órdenes Procesadas</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number">4.9/5</div>
+                <div class="stat-label">Calificación</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-image">
+            <div class="mockup-container">
+              <div class="mockup-window">
+                <div class="mockup-header">
+                  <div class="mockup-dots">
+                    <span></span><span></span><span></span>
+                  </div>
+                  <div class="mockup-title">LabManager - Dashboard</div>
+                </div>
+                <div class="mockup-content">
+                  <!-- Placeholder for screenshot -->
+                  <div class="placeholder-dashboard">
+                    <div class="placeholder-cards">
+                      <div class="placeholder-card card-purple">
+                        <div class="card-content">
+                          <div class="card-label">En Proceso</div>
+                          <div class="card-value">12</div>
+                        </div>
+                      </div>
+                      <div class="placeholder-card card-orange">
+                        <div class="card-content">
+                          <div class="card-label">Pendientes</div>
+                          <div class="card-value">8</div>
+                        </div>
+                      </div>
+                      <div class="placeholder-card card-blue">
+                        <div class="card-content">
+                          <div class="card-label">Completadas</div>
+                          <div class="card-value">45</div>
+                        </div>
+                      </div>
+                      <div class="placeholder-card card-green">
+                        <div class="card-content">
+                          <div class="card-label">Ingresos</div>
+                          <div class="card-value">$24.5K</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="placeholder-table">
+                      <div class="table-header">
+                        <div class="table-cell">Cliente</div>
+                        <div class="table-cell">Equipo</div>
+                        <div class="table-cell">Estado</div>
+                        <div class="table-cell">Monto</div>
+                      </div>
+                      <div class="table-row">
+                        <div class="table-cell">Juan Pérez</div>
+                        <div class="table-cell">Laptop HP</div>
+                        <div class="table-cell">
+                          <span class="status-badge status-progress"
+                            >En Proceso</span
+                          >
+                        </div>
+                        <div class="table-cell">$3,500</div>
+                      </div>
+                      <div class="table-row">
+                        <div class="table-cell">María García</div>
+                        <div class="table-cell">PC Desktop</div>
+                        <div class="table-cell">
+                          <span class="status-badge status-pending"
+                            >Pendiente</span
+                          >
+                        </div>
+                        <div class="table-cell">$2,800</div>
+                      </div>
+                      <div class="table-row">
+                        <div class="table-cell">Carlos López</div>
+                        <div class="table-cell">MacBook Pro</div>
+                        <div class="table-cell">
+                          <span class="status-badge status-progress"
+                            >En Proceso</span
+                          >
+                        </div>
+                        <div class="table-cell">$5,200</div>
+                      </div>
+                      <div class="table-row">
+                        <div class="table-cell">Ana Martínez</div>
+                        <div class="table-cell">Laptop Dell</div>
+                        <div class="table-cell">
+                          <span class="status-badge status-complete"
+                            >Completada</span
+                          >
+                        </div>
+                        <div class="table-cell">$1,900</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Todo lo que Necesitas</h2>
+          <p class="section-subtitle">
+            Funcionalidades diseñadas para simplificar tu trabajo diario
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3 class="feature-title">Dashboard Inteligente</h3>
+            <p class="feature-description">
+              Visualiza todas tus órdenes en tiempo real. Filtra por estado,
+              cliente o fecha con un solo click.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <h3 class="feature-title">Gestión de Clientes</h3>
+            <p class="feature-description">
+              Historial completo de cada cliente. Búsqueda rápida por nombre,
+              teléfono o email.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📦</div>
+            <h3 class="feature-title">Control de Inventario</h3>
+            <p class="feature-description">
+              Gestiona repuestos y componentes. Alertas automáticas de stock
+              bajo.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">💰</div>
+            <h3 class="feature-title">Presupuestos Profesionales</h3>
+            <p class="feature-description">
+              Crea presupuestos detallados en minutos. Exporta a PDF con tu
+              logo.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3 class="feature-title">Integración WhatsApp</h3>
+            <p class="feature-description">
+              Envía presupuestos y reportes directamente por WhatsApp a tus
+              clientes.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <h3 class="feature-title">Reportes Financieros</h3>
+            <p class="feature-description">
+              Analiza tus ingresos, gastos y rentabilidad con reportes
+              detallados.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">✅</div>
+            <h3 class="feature-title">Control de Calidad</h3>
+            <p class="feature-description">
+              Checklist de verificación antes de entregar cada equipo reparado.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3 class="feature-title">100% Offline</h3>
+            <p class="feature-description">
+              Tus datos están seguros en tu computadora. No requiere internet.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Precios Transparentes</h2>
+          <p class="section-subtitle">
+            Sin costos ocultos. Sin suscripciones mensuales.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Trial -->
+          <div class="pricing-card">
+            <div class="pricing-header">
+              <h3 class="pricing-name">Prueba Gratuita</h3>
+              <div class="pricing-price">
+                <span class="price-currency">$</span>
+                <span class="price-amount">0</span>
+              </div>
+              <p class="pricing-duration">30 días completos</p>
+            </div>
+            <ul class="pricing-features">
+              <li>✅ Todas las funcionalidades</li>
+              <li>✅ Sin límite de órdenes</li>
+              <li>✅ Soporte por email</li>
+              <li>✅ Sin tarjeta de crédito</li>
+            </ul>
+            <a href="#download" class="btn btn-outline">Descargar Ahora</a>
+          </div>
+
+          <!-- Standard -->
+          <div class="pricing-card featured">
+            <div class="badge">Más Popular</div>
+            <div class="pricing-header">
+              <h3 class="pricing-name">Licencia Estándar</h3>
+              <div class="pricing-price">
+                <span class="price-currency">$</span>
+                <span class="price-amount">49</span>
+              </div>
+              <p class="pricing-duration">Pago único - De por vida</p>
+            </div>
+            <ul class="pricing-features">
+              <li>✅ Todas las funcionalidades</li>
+              <li>✅ Órdenes ilimitadas</li>
+              <li>✅ Actualizaciones 1 año</li>
+              <li>✅ Soporte prioritario</li>
+              <li>✅ Personalización incluida</li>
+            </ul>
+            <div id="paypal-button-standard"></div>
+          </div>
+
+          <!-- Pro -->
+          <div class="pricing-card">
+            <div class="pricing-header">
+              <h3 class="pricing-name">Licencia Pro</h3>
+              <div class="pricing-price">
+                <span class="price-currency">$</span>
+                <span class="price-amount">99</span>
+              </div>
+              <p class="pricing-duration">Pago único - De por vida</p>
+            </div>
+            <ul class="pricing-features">
+              <li>✅ Todo lo de Estándar</li>
+              <li>✅ 3 licencias incluidas</li>
+              <li>✅ Actualizaciones de por vida</li>
+              <li>✅ Soporte 24/7</li>
+              <li>✅ Capacitación personalizada</li>
+              <li>✅ Funciones exclusivas</li>
+            </ul>
+            <div id="paypal-button-pro"></div>
+          </div>
+        </div>
+
+        <div class="pricing-guarantee">
+          <div class="guarantee-icon">🛡️</div>
+          <div class="guarantee-text">
+            <h4>Garantía de 30 Días</h4>
+            <p>
+              Si no estás satisfecho, te devolvemos tu dinero. Sin preguntas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Preguntas Frecuentes</h2>
+          <p class="section-subtitle">Todo lo que necesitas saber</p>
+        </div>
+
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3 class="faq-question">
+              ¿Necesito internet para usar el software?
+            </h3>
+            <p class="faq-answer">
+              No. El software funciona 100% offline. Solo necesitas internet si
+              quieres enviar presupuestos por WhatsApp.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">
+              ¿Puedo usar el software en varias computadoras?
+            </h3>
+            <p class="faq-answer">
+              Cada licencia es para una computadora. Si necesitas más, ofrecemos
+              descuentos por volumen.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">¿Qué incluye el soporte técnico?</h3>
+            <p class="faq-answer">
+              Ayuda con instalación, configuración y uso del software.
+              Respondemos en menos de 24 horas.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">¿Hay límite de órdenes o clientes?</h3>
+            <p class="faq-answer">
+              No. Puedes crear órdenes y clientes ilimitados. La base de datos
+              puede manejar miles sin problemas.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">¿Funciona en Windows 7?</h3>
+            <p class="faq-answer">
+              Sí. Compatible con Windows 7, 8, 10 y 11. Tanto 32 como 64 bits.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">¿Puedo exportar mis datos?</h3>
+            <p class="faq-answer">
+              Sí. Todos tus datos están en una base de datos SQLite que puedes
+              respaldar y exportar fácilmente.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="download" class="cta">
+      <div class="container">
+        <div class="cta-content">
+          <h2 class="cta-title">¿Listo para Transformar tu Taller?</h2>
+          <p class="cta-subtitle">
+            Únete a cientos de talleres que ya confían en LabManager
+          </p>
+          <div class="cta-buttons">
+            <a
+              href="Instalador_LabManager_v2.exe"
+              class="btn btn-primary btn-large"
+              download
+            >
+              Descargar Versión de Prueba
+            </a>
+            <p class="cta-note">
+              Windows 7/8/10/11 • 25 MB • Instalación en 2 minutos
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Contáctanos</h2>
+          <p class="section-subtitle">Estamos aquí para ayudarte</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">📧</div>
+              <div class="contact-details">
+                <h4>Email</h4>
+                <p>soporte@tallerpc.com</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">💬</div>
+              <div class="contact-details">
+                <h4>WhatsApp</h4>
+                <p>+54 9 11 XXXX-XXXX</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">⏰</div>
+              <div class="contact-details">
+                <h4>Horario</h4>
+                <p>Lun-Vie: 9:00 - 18:00</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form">
+            <form>
+              <input type="text" placeholder="Nombre" required />
+              <input type="email" placeholder="Email" required />
+              <input type="tel" placeholder="Teléfono" />
+              <textarea placeholder="Mensaje" rows="4" required></textarea>
+              <button type="submit" class="btn btn-primary">
+                Enviar Mensaje
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <img
+                src="labmanager_logo.png"
+                alt="LabManager Logo"
+                style="height: 24px; width: auto; margin-right: 8px"
+              />
+              <span class="brand-name">LabManager</span>
+            </div>
+            <p class="footer-description">
+              Software profesional para gestión de talleres de reparación
+            </p>
+          </div>
+
+          <div class="footer-links">
+            <div class="footer-column">
+              <h4>Producto</h4>
+              <a href="#features">Características</a>
+              <a href="#pricing">Precios</a>
+              <a href="#download">Descargar</a>
+            </div>
+
+            <div class="footer-column">
+              <h4>Soporte</h4>
+              <a href="#faq">FAQ</a>
+              <a href="#">Documentación</a>
+              <a href="#contact">Contacto</a>
+            </div>
+
+            <div class="footer-column">
+              <h4>Legal</h4>
+              <a href="#">Términos de Uso</a>
+              <a href="#">Privacidad</a>
+              <a href="#">Licencia</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 LabManager. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="landing_script.js"></script>
+  </body>
+</html>

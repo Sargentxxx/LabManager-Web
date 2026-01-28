@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LabManager - Demo Interactiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --sidebar-bg: #1e293b;
+            --sidebar-text: #e2e8f0;
+            --main-bg: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 2.5rem;
+        }
+
+        .brand-logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .nav-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            text-decoration: none;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #334155;
+            color: #fff;
+        }
+
+        .nav-item.active {
+            background-color: var(--primary);
+        }
+
+        .user-profile {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 1.5rem;
+            border-top: 1px solid #334155;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #475569;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .user-info h4 { font-size: 0.9rem; color: #fff; }
+        .user-info p { font-size: 0.8rem; color: #94a3b8; }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .date-badge {
+            background-color: #e0e7ff;
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* Dashboard Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-info h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .stat-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Table Section */
+        .table-container {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .table-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .data-table td {
+            padding: 16px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-pending { background: #fff7ed; color: #c2410c; }
+        .status-progress { background: #eff6ff; color: #1d4ed8; }
+        .status-completed { background: #f0fdf4; color: #15803d; }
+
+        .btn-action {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Demo Overlay */
+        .demo-overlay {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+        }
+
+        .btn-buy {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                height: 100%;
+                transform: translateX(-100%);
+                z-index: 50;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-logo">LM</div>
+            <span>LabManager</span>
+        </div>
+        <nav class="nav-items">
+            <a href="#" class="nav-item active">
+                <span>📊</span> Dashboard
+            </a>
+            <a href="#" class="nav-item" onclick="alert('Funcionalidad disponible en la versión completa');">
+                <span>📝</span> Nuevo Caso
+            </a>
+            <a href="#" class="nav-item" onclick="alert('Funcionalidad disponible en la versión completa');">
+                <span>🔍</span> Buscar
+            </a>
+            <a href="#" class="nav-item" onclick="alert('Funcionalidad disponible en la versión completa');">
+                <span>💰</span> Presupuestos
+            </a>
+            <a href="#" class="nav-item" onclick="alert('Funcionalidad disponible en la versión completa');">
+                <span>📦</span> Inventario
+            </a>
+            <a href="#" class="nav-item" onclick="alert('Funcionalidad disponible en la versión completa');">
+                <span>⚙️</span> Configuración
+            </a>
+        </nav>
+        <div class="user-profile">
+            <div class="avatar">AD</div>
+            <div class="user-info">
+                <h4>Administrador</h4>
+                <p>Tech Master</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <h1 class="page-title">Dashboard</h1>
+            <div class="date-badge" id="current-date">21/01/2026</div>
+        </header>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #eef2ff; color: #4f46e5;">📋</div>
+                <div class="stat-info">
+                    <h3>24</h3>
+                    <p>Total Casos</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #fff7ed; color: #ea580c;">⏳</div>
+                <div class="stat-info">
+                    <h3>5</h3>
+                    <p>Pendientes</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #eff6ff; color: #2563eb;">🔧</div>
+                <div class="stat-info">
+                    <h3>12</h3>
+                    <p>En Progreso</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #f0fdf4; color: #16a34a;">✅</div>
+                <div class="stat-info">
+                    <h3>7</h3>
+                    <p>Completados</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Cases Table -->
+        <div class="table-container">
+            <div class="table-header">
+                <h2 class="table-title">Casos Recientes</h2>
+                <button class="btn-action">Filtrar</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Equipo</th>
+                        <th>Estado</th>
+                        <th>Fecha</th>
+                        <th>Técnico</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#1024</td>
+                        <td>María González</td>
+                        <td>Laptop HP Pavilion</td>
+                        <td><span class="status-badge status-progress">En Progreso</span></td>
+                        <td>21/01/2026</td>
+                        <td>Juan Pérez</td>
+                        <td><button class="btn-action">Ver</button></td>
+                    </tr>
+                    <tr>
+                        <td>#1023</td>
+                        <td>Carlos Rodríguez</td>
+                        <td>MacBook Pro M1</td>
+                        <td><span class="status-badge status-pending">Pendiente</span></td>
+                        <td>20/01/2026</td>
+                        <td>Sin Asignar</td>
+                        <td><button class="btn-action">Ver</button></td>
+                    </tr>
+                    <tr>
+                        <td>#1022</td>
+                        <td>Ana Silva</td>
+                        <td>PC Gamer Custom</td>
+                        <td><span class="status-badge status-completed">Terminado</span></td>
+                        <td>19/01/2026</td>
+                        <td>Pedro Tech</td>
+                        <td><button class="btn-action">Ver</button></td>
+                    </tr>
+                    <tr>
+                        <td>#1021</td>
+                        <td>Empresa ABC</td>
+                        <td>Servidor Dell</td>
+                        <td><span class="status-badge status-progress">En Espera</span></td>
+                        <td>18/01/2026</td>
+                        <td>Juan Pérez</td>
+                        <td><button class="btn-action">Ver</button></td>
+                    </tr>
+                     <tr>
+                        <td>#1020</td>
+                        <td>Roberto Gomez</td>
+                        <td>iPhone 13</td>
+                        <td><span class="status-badge status-completed">Entregado</span></td>
+                        <td>18/01/2026</td>
+                        <td>Pedro Tech</td>
+                        <td><button class="btn-action">Ver</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Demo Banner -->
+    <div class="demo-overlay">
+        <h3>Modo Demo</h3>
+        <p style="font-size: 0.9rem; margin-bottom: 10px; opacity: 0.9;">Esta es una simulación web. El software real incluye muchas más funciones.</p>
+        <a href="index.html#pricing" class="btn-buy">Obtener Licencia Completa</a>
+    </div>
+
+    <script>
+        // Simple interactivity for the demo
+        document.querySelectorAll('.btn-action').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if(btn.textContent === 'Ver') {
+                    alert('En la versión completa, esto abriría los detalles completos del caso, historial y opciones de gestión.');
+                }
+            });
+        });
+
+        // Current date
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('es-ES', options);
+    </script>
+</body>
+</html>
