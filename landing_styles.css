@@ -910,20 +910,37 @@ body {
   filter: brightness(0) invert(1);
 }
 
-/* Mercado Pago Button Styles */
+/* Mercado Pago Button Styles - Aggressive Fix */
 .mercadopago-button {
-  width: 100% !important; /* Fit container */
-  max-width: 200px !important; /* Limit max width */
-  padding: 8px 16px !important; /* Reduce padding */
-  font-size: 14px !important; /* Smaller text */
-  margin: 10px auto !important; /* Center and spacing */
-  display: block !important;
-  border-radius: 6px !important;
+    background-color: #009EE3 !important; /* MP Blue */
+    color: white !important;
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 12px 24px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    max-width: 250px !important;
+    display: block !important;
+    margin: 10px auto !important;
+    min-height: 48px !important; /* Ensure it's not collapsed */
+    height: auto !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    text-transform: none !important;
+    line-height: normal !important;
+    transition: background-color 0.3s ease !important;
+}
+
+.mercadopago-button:hover {
+    background-color: #007EB5 !important;
 }
 
 .mp-button-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    width: 100%;
+    min-height: 50px; /* Reserve space */
 }
