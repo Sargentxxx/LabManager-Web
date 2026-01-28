@@ -279,3 +279,57 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
+
+// Mercado Pago Integration
+document.addEventListener("DOMContentLoaded", function () {
+    // Inicializar Mercado Pago con tu PUBLIC KEY
+    // IMPORTANTE: Reemplaza 'TEST-TU-PUBLIC-KEY-AQUI' con tu Public Key real de Mercado Pago
+    // La puedes encontrar en: https://www.mercadopago.com.ar/developers/panel/credentials
+    
+    // NOTA: Si no configuras la PUBLIC KEY real, los botones no apareceran
+    const mp = new MercadoPago('TEST-TU-PUBLIC-KEY-AQUI', {
+        locale: 'es-AR'
+    });
+
+    // Botón para Licencia Estándar
+    if (document.getElementById("wallet_container_standard")) {
+        mp.bricks().create("wallet", "wallet_container_standard", {
+            initialization: {
+                // IMPORTANTE: Reemplaza con el ID de preferencia generado en tu backend/panel de Mercado Pago para el producto de $49k
+                preferenceId: 'TEST-PREFERENCE-ID-STANDARD', 
+                redirectMode: "modal"
+            },
+            customization: {
+                texts: {
+                    action: 'buy',
+                    valueProp: 'security_details',
+                },
+                visual: {
+                    buttonBackground: 'default',
+                    borderRadius: '16px',
+                }
+            },
+        });
+    }
+
+    // Botón para Licencia Pro
+    if (document.getElementById("wallet_container_pro")) {
+        mp.bricks().create("wallet", "wallet_container_pro", {
+            initialization: {
+                // IMPORTANTE: Reemplaza con el ID de preferencia generado para el producto de $99k
+                preferenceId: 'TEST-PREFERENCE-ID-PRO',
+                redirectMode: "modal"
+            },
+            customization: {
+                texts: {
+                    action: 'buy',
+                    valueProp: 'security_details',
+                },
+                 visual: {
+                    buttonBackground: 'black', // Estilo distinto para Pro
+                    borderRadius: '16px',
+                }
+            },
+        });
+    }
+});
