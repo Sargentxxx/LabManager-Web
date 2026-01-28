@@ -886,60 +886,44 @@ body {
 
 /* Mercado Pago Button Styles */
 .btn-mp {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: 10px;
-    padding: 12px;
-    background-color: #009EE3; /* MP Blue */
-    color: white;
-    font-weight: bold;
-    border-radius: 4px; /* MP Style */
-    text-decoration: none;
-    transition: background-color 0.3s;
-    border: none;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  background-color: #009ee3; /* MP Blue */
+  color: white;
+  font-weight: bold;
+  border-radius: 4px; /* MP Style */
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: none;
+  cursor: pointer;
 }
 .btn-mp:hover {
-    background-color: #007EB5;
+  background-color: #007eb5;
 }
 .btn-mp img {
-    height: 20px;
-    margin-right: 10px;
-    filter: brightness(0) invert(1);
+  height: 20px;
+  margin-right: 10px;
+  filter: brightness(0) invert(1);
 }
 
 /* Mercado Pago Button Styles */
-.btn-mp {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: 12px;
-    padding: 12px 20px;
-    background-color: #009EE3; /* MP Blue */
-    color: white;
-    font-weight: 600;
-    font-size: 1rem;
-    border-radius: 4px; /* MP Style */
-    text-decoration: none;
-    transition: all 0.2s ease;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    line-height: 1.2;
+.mercadopago-button {
+  width: 100% !important; /* Fit container */
+  max-width: 200px !important; /* Limit max width */
+  padding: 8px 16px !important; /* Reduce padding */
+  font-size: 14px !important; /* Smaller text */
+  margin: 10px auto !important; /* Center and spacing */
+  display: block !important;
+  border-radius: 6px !important;
 }
 
-.btn-mp:hover {
-    background-color: #007EB5;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-    transform: translateY(-1px);
-}
-
-.btn-mp svg {
-    height: 24px;
-    width: auto;
-    margin-right: 12px;
-    fill: white;
+.mp-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100%;
 }
