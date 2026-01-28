@@ -236,6 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return actions.order.capture().then(function (details) {
             alert('¡Pago completado con éxito por ' + details.payer.name.given_name + '! Gracias por su compra.');
             // Here you would typically trigger the download or license generation
+            saveSale(details, 'Standard'); // Guardar en Firebase
             window.location.href = "Instalador_LabManager_v2.exe";
           });
         },
@@ -268,6 +269,7 @@ document.addEventListener("DOMContentLoaded", function () {
         onApprove: function (data, actions) {
           return actions.order.capture().then(function (details) {
             alert('¡Pago completado con éxito por ' + details.payer.name.given_name + '! Gracias por su compra.');
+            saveSale(details, 'Pro'); // Guardar en Firebase
             window.location.href = "Instalador_LabManager_v2.exe";
           });
         },
@@ -280,6 +282,46 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+});
+
+// --- FIREBASE INTEGRATION FOR SALES ---
+// ⚠️ COPIA AQUÍ LA MISMA CONFIGURACIÓN QUE EN ADMIN_SCRIPT.JS
+const firebaseConfig = {
+    apiKey: "TU_API_KEY",
+    authDomain: "TU_PROYECTO.firebaseapp.com",
+    projectId: "TU_PROYECTO_ID",
+    storageBucket: "TU_PROYECTO.appspot.com",
+    messagingSenderId: "TU_SENDER_ID",
+    appId: "TU_APP_ID"
+};
+
+// Initialize
+let db;
+try {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+} catch (e) {
+    console.log("Firebase no init (falta config)");
+}
+
+function saveSale(details, type) {
+    if (!db) return;
+    
+    db.collection('sales').add({
+        name: details.payer.name.given_name + ' ' + details.payer.name.surname,
+        email: details.payer.email_address,
+        date: new Date().toISOString(),
+        amount: type === 'Pro' ? 99.00 : 49.00,
+        type: type,
+        status: 'Pendiente', // Pendiente de envío de licencia
+        id_pago: details.id
+    }).then(() => {
+        console.log("Venta registrada en DB");
+    }).catch((e) => {
+        console.error("Error guardando venta: ", e);
+    });
+}
+
 // Mercado Pago Integration
 document.addEventListener("DOMContentLoaded", function () {
     // Inicializar Mercado Pago con tu PUBLIC KEY
@@ -287,49 +329,46 @@ document.addEventListener("DOMContentLoaded", function () {
     // La puedes encontrar en: https://www.mercadopago.com.ar/developers/panel/credentials
     
     // NOTA: Si no configuras la PUBLIC KEY real, los botones no apareceran
-    const mp = new MercadoPago('TEST-TU-PUBLIC-KEY-AQUI', {
-        locale: 'es-AR'
-    });
-
-    // Botón para Licencia Estándar
-    if (document.getElementById("wallet_container_standard")) {
-        mp.bricks().create("wallet", "wallet_container_standard", {
-            initialization: {
-                // IMPORTANTE: Reemplaza con el ID de preferencia generado en tu backend/panel de Mercado Pago para el producto de $49k
-                preferenceId: 'TEST-PREFERENCE-ID-STANDARD', 
-                redirectMode: "modal"
-            },
-            customization: {
-                texts: {
-                    action: 'buy',
-                    valueProp: 'security_details',
-                },
-                visual: {
-                    buttonBackground: 'default',
-                    borderRadius: '16px',
-                }
-            },
+    try {
+        const mp = new MercadoPago('TEST-TU-PUBLIC-KEY-AQUI', {
+            locale: 'es-AR'
         });
-    }
 
-    // Botón para Licencia Pro
-    if (document.getElementById("wallet_container_pro")) {
-        mp.bricks().create("wallet", "wallet_container_pro", {
-            initialization: {
-                // IMPORTANTE: Reemplaza con el ID de preferencia generado para el producto de $99k
-                preferenceId: 'TEST-PREFERENCE-ID-PRO',
-                redirectMode: "modal"
-            },
-            customization: {
-                texts: {
-                    action: 'buy',
-                    valueProp: 'security_details',
+        // Botón para Licencia Estándar
+        if (document.getElementById("wallet_container_standard")) {
+            mp.bricks().create("wallet", "wallet_container_standard", {
+                initialization: {
+                    preferenceId: 'TEST-PREFERENCE-ID-STANDARD', 
+                    redirectMode: "modal"
                 },
-                 visual: {
-                    buttonBackground: 'black', // Estilo distinto para Pro
-                    borderRadius: '16px',
+                customization: {
+                    texts: { action: 'buy', valueProp: 'security_details' },
+                    visual: { buttonBackground: 'default', borderRadius: '16px' }
+                },
+                callbacks: {
+                    onSubmit: (formData) => {
+                        // En MP Bricks, la confirmación suele ser via Webhook, 
+                        // pero aquí podemos capturar el intento.
+                        console.log("Iniciando pago MP Estándar");
+                    }
                 }
-            },
-        });
+            });
+        }
+
+        // Botón para Licencia Pro
+        if (document.getElementById("wallet_container_pro")) {
+            mp.bricks().create("wallet", "wallet_container_pro", {
+                initialization: {
+                    preferenceId: 'TEST-PREFERENCE-ID-PRO',
+                    redirectMode: "modal"
+                },
+                customization: {
+                    texts: { action: 'buy', valueProp: 'security_details' },
+                    visual: { buttonBackground: 'black', borderRadius: '16px' }
+                }
+            });
+        }
+    } catch (error) {
+        console.warn("MercadoPago no configurado (Falta Key)");
     }
 });
