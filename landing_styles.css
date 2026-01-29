@@ -884,63 +884,93 @@ body {
   }
 }
 
-/* Mercado Pago Button Styles */
-.btn-mp {
+/* Mercado Pago Buttons - Premium Redesign */
+.btn-mercadopago {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.75rem;
   width: 100%;
-  margin-top: 10px;
-  padding: 12px;
-  background-color: #009ee3; /* MP Blue */
+  padding: 1.125rem 2rem;
+  margin-top: 1.5rem;
+  
+  /* Estética Premium: Gradiente con profundidad */
+  background: linear-gradient(135deg, #009EE3 0%, #007eb5 100%);
   color: white;
-  font-weight: bold;
-  border-radius: 4px; /* MP Style */
-  text-decoration: none;
-  transition: background-color 0.3s;
+  font-weight: 700;
+  font-size: 1rem;
   border: none;
+  border-radius: 12px;
   cursor: pointer;
-}
-.btn-mp:hover {
-  background-color: #007eb5;
-}
-.btn-mp img {
-  height: 20px;
-  margin-right: 10px;
-  filter: brightness(0) invert(1);
+  
+  /* Sombra suave y moderna */
+  box-shadow: 0 10px 20px -5px rgba(0, 158, 227, 0.4);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden; /* Para el efecto de brillo */
 }
 
-/* Mercado Pago Button Styles - Aggressive Fix */
-.mercadopago-button {
-    background-color: #009EE3 !important; /* MP Blue */
-    color: white !important;
-    border: none !important;
-    border-radius: 6px !important;
-    padding: 12px 24px !important;
-    font-size: 16px !important;
-    font-weight: 600 !important;
-    cursor: pointer !important;
-    width: 100% !important;
-    max-width: 250px !important;
-    display: block !important;
-    margin: 10px auto !important;
-    min-height: 48px !important; /* Ensure it's not collapsed */
-    height: auto !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
-    text-transform: none !important;
-    line-height: normal !important;
-    transition: background-color 0.3s ease !important;
+/* Efecto Shimmer (Brillo animado) */
+.btn-mercadopago::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg);
+  transition: none;
+  animation: shimmer 4s infinite;
 }
 
-.mercadopago-button:hover {
-    background-color: #007EB5 !important;
+@keyframes shimmer {
+  0% { transform: translateX(-150%) rotate(45deg); }
+  20%, 100% { transform: translateX(150%) rotate(45deg); }
 }
 
-.mp-button-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15px;
-    width: 100%;
-    min-height: 50px; /* Reserve space */
+.btn-mercadopago:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 15px 30px -8px rgba(0, 158, 227, 0.6);
+  background: linear-gradient(135deg, #00adef 0%, #008cc9 100%);
+}
+
+.btn-mercadopago:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* Versión Pro - Más lujosa */
+.btn-mercadopago-pro {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-mercadopago-pro:hover {
+  background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+  box-shadow: 0 15px 30px -8px rgba(0, 0, 0, 0.5);
+  border-color: #009EE3;
+}
+
+.mp-icon-svg {
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.mp-secure-text {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  text-align: center;
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  opacity: 0.8;
 }

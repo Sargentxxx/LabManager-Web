@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('¡Pago completado con éxito por ' + details.payer.name.given_name + '! Gracias por su compra.');
             // Here you would typically trigger the download or license generation
             saveSale(details, 'Standard'); // Guardar en Firebase
-            window.location.href = "Instalador_LabManager_v3.exe";
+            window.location.href = "Instalador_LabManager_v2.exe";
           });
         },
         onError: function (err) {
@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return actions.order.capture().then(function (details) {
             alert('¡Pago completado con éxito por ' + details.payer.name.given_name + '! Gracias por su compra.');
             saveSale(details, 'Pro'); // Guardar en Firebase
-            window.location.href = "Instalador_LabManager_v3.exe";
+            window.location.href = "Instalador_LabManager_v2.exe";
           });
         },
         onError: function (err) {
@@ -322,5 +322,44 @@ function saveSale(details, type) {
     });
 }
 
-// Mercado Pago - Links de Pago configurados en HTML
-console.log('Mercado Pago links ready');
+// Mercado Pago Integration
+document.addEventListener("DOMContentLoaded", function () {
+    // Inicializar Mercado Pago con tu PUBLIC KEY
+    // IMPORTANTE: Reemplaza 'TEST-TU-PUBLIC-KEY-AQUI' con tu Public Key real de Mercado Pago
+    // La puedes encontrar en: https://www.mercadopago.com.ar/developers/panel/credentials
+    
+    // NOTA: Si no configuras la PUBLIC KEY real, los botones no apareceran
+    try {
+        const mp = new MercadoPago('APP_USR-38c7cc9a-6055-4b0f-81ca-81fe7692f325', {
+            locale: 'es-AR'
+        });
+
+        // Botón para Licencia Estándar
+        const btnStandard = document.getElementById('btn-mercadopago-standard');
+        if (btnStandard) {
+            btnStandard.addEventListener('click', () => {
+                const checkout = mp.checkout({
+                    preference: {
+                        id: '5241841-4e3f5bd9-7e8e-4023-916b-0b49a1297d78' 
+                    }
+                });
+                checkout.open();
+            });
+        }
+
+        // Botón para Licencia Pro
+        const btnPro = document.getElementById('btn-mercadopago-pro');
+        if (btnPro) {
+            btnPro.addEventListener('click', () => {
+                const checkout = mp.checkout({
+                    preference: {
+                        id: '5241841-12d15c2b-570c-4e19-ad93-baf3d881f2b8' 
+                    }
+                });
+                checkout.open();
+            });
+        }
+    } catch (error) {
+        console.warn("MercadoPago no configurado (Falta Key)");
+    }
+});
