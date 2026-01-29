@@ -328,28 +328,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const mp = new MercadoPago(PUBLIC_KEY, {
             locale: 'es-AR'
         });
-
-        // Configuración de botones personalizados con redirección directa
-        const checkoutConfig = {
-            standard: 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=5241841-4e3f5bd9-7e8e-4023-916b-0b49a1297d78',
-            pro: 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=5241841-12d15c2b-570c-4e19-ad93-baf3d881f2b8'
-        };
-
-        const btnStandard = document.getElementById('btn-mercadopago-standard');
-        if (btnStandard) {
-            btnStandard.addEventListener('click', () => {
-                console.log("Redirigiendo a Mercado Pago Estándar...");
-                window.location.href = checkoutConfig.standard;
-            });
-        }
-
-        const btnPro = document.getElementById('btn-mercadopago-pro');
-        if (btnPro) {
-            btnPro.addEventListener('click', () => {
-                console.log("Redirigiendo a Mercado Pago Pro...");
-                window.location.href = checkoutConfig.pro;
-            });
-        }
+        // Los botones ahora son enlaces directos <a> con target="_blank"
     } catch (error) {
         console.error("Error al inicializar Mercado Pago:", error);
     }
