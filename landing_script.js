@@ -282,8 +282,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-});
-
 // --- FIREBASE INTEGRATION FOR SALES ---
 // ⚠️ COPIA AQUÍ LA MISMA CONFIGURACIÓN QUE EN ADMIN_SCRIPT.JS
 const firebaseConfig = {
