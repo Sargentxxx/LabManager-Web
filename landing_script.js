@@ -57,16 +57,24 @@ if (contactForm) {
         const formData = new FormData(contactForm);
         const data = Object.fromEntries(formData);
         
-        // Show success message (in production, send to server)
-        alert('¡Gracias por tu mensaje! Te contactaremos pronto.');
-        contactForm.reset();
+        // Construct WhatsApp Message
+        const phoneNumber = '543854982605'; // Tu número
+        const text = `Hola, mi nombre es ${data.nombre}.
+Email: ${data.email}
+Teléfono: ${data.telefono || 'No especificado'}
+
+Mensaje: ${data.mensaje}
+
+(Enviado desde LabManager Web)`;
+
+        // Encode for URL
+        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
         
-        // In production, you would send this to your backend:
-        // fetch('/api/contact', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(data)
-        // });
+        // Open WhatsApp
+        window.open(url, '_blank');
+        
+        // Reset form
+        contactForm.reset();
     });
 }
 
@@ -237,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('¡Pago completado con éxito por ' + details.payer.name.given_name + '! Gracias por su compra.');
             // Here you would typically trigger the download or license generation
             saveSale(details, 'Standard'); // Guardar en Firebase
-            window.location.href = "Instalador_LabManager_v2.exe";
+            window.location.href = "Instalador_LabManager_v3.exe";
           });
         },
         onError: function (err) {
@@ -270,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return actions.order.capture().then(function (details) {
             alert('¡Pago completado con éxito por ' + details.payer.name.given_name + '! Gracias por su compra.');
             saveSale(details, 'Pro'); // Guardar en Firebase
-            window.location.href = "Instalador_LabManager_v2.exe";
+            window.location.href = "Instalador_LabManager_v3.exe";
           });
         },
         onError: function (err) {

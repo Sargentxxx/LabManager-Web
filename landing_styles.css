@@ -842,33 +842,92 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .hero-content {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-title {
-    font-size: 2.5rem;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-  }
-
-  .hero-stats {
-    flex-direction: column;
-    gap: 1.5rem;
+  .navbar .container {
+    padding: 0 1rem;
   }
 
   .nav-links {
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    align-items: stretch;
+    text-align: center;
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .nav-links.active {
+    display: flex;
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .nav-links .btn-nav {
+    display: inline-block;
+  }
+
+  /* Reduce Hero Padding on Mobile */
+  .hero {
+    padding: 6rem 0 3rem;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 3rem;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+  }
+  
+  .hero-buttons {
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .mockup-window {
+    transform: none; /* Remove 3D effect on mobile for better fit */
+    margin: 0 1rem;
   }
 
   .features-grid {
     grid-template-columns: 1fr;
+    padding: 0 1rem;
   }
 
   .pricing-grid {
     grid-template-columns: 1fr;
+    padding: 0 1rem;
   }
 
   .contact-grid {
@@ -877,12 +936,18 @@ body {
 
   .footer-content {
     grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .footer-logo {
+    justify-content: center;
   }
 
   .cta-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 }
+
 
 /* Mercado Pago Buttons - Premium Redesign */
 .btn-mercadopago {
@@ -973,4 +1038,48 @@ body {
   justify-content: center;
   gap: 0.25rem;
   opacity: 0.8;
+}
+
+/* Floating WhatsApp Button */
+.whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #25d366;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  background-color: #128c7e;
+  transform: scale(1.1);
+}
+
+.whatsapp-icon {
+  width: 35px;
+  height: 35px;
+  fill: white;
+}
+
+@media (max-width: 768px) {
+  .whatsapp-float {
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    right: 20px;
+  }
+  .whatsapp-icon {
+    width: 28px;
+    height: 28px;
+  }
 }
