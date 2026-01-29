@@ -324,42 +324,35 @@ function saveSale(details, type) {
 
 // Mercado Pago Integration
 document.addEventListener("DOMContentLoaded", function () {
-    // Inicializar Mercado Pago con tu PUBLIC KEY
-    // IMPORTANTE: Reemplaza 'TEST-TU-PUBLIC-KEY-AQUI' con tu Public Key real de Mercado Pago
-    // La puedes encontrar en: https://www.mercadopago.com.ar/developers/panel/credentials
+    const PUBLIC_KEY = 'APP_USR-38c7cc9a-6055-4b0f-81ca-81fe7692f325';
     
-    // NOTA: Si no configuras la PUBLIC KEY real, los botones no apareceran
     try {
-        const mp = new MercadoPago('APP_USR-38c7cc9a-6055-4b0f-81ca-81fe7692f325', {
+        const mp = new MercadoPago(PUBLIC_KEY, {
             locale: 'es-AR'
         });
 
-        // Botón para Licencia Estándar
+        // Configuración de botones personalizados con redirección directa
+        const checkoutConfig = {
+            standard: 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=5241841-4e3f5bd9-7e8e-4023-916b-0b49a1297d78',
+            pro: 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=5241841-12d15c2b-570c-4e19-ad93-baf3d881f2b8'
+        };
+
         const btnStandard = document.getElementById('btn-mercadopago-standard');
         if (btnStandard) {
             btnStandard.addEventListener('click', () => {
-                const checkout = mp.checkout({
-                    preference: {
-                        id: '5241841-4e3f5bd9-7e8e-4023-916b-0b49a1297d78' 
-                    }
-                });
-                checkout.open();
+                console.log("Redirigiendo a Mercado Pago Estándar...");
+                window.location.href = checkoutConfig.standard;
             });
         }
 
-        // Botón para Licencia Pro
         const btnPro = document.getElementById('btn-mercadopago-pro');
         if (btnPro) {
             btnPro.addEventListener('click', () => {
-                const checkout = mp.checkout({
-                    preference: {
-                        id: '5241841-12d15c2b-570c-4e19-ad93-baf3d881f2b8' 
-                    }
-                });
-                checkout.open();
+                console.log("Redirigiendo a Mercado Pago Pro...");
+                window.location.href = checkoutConfig.pro;
             });
         }
     } catch (error) {
-        console.warn("MercadoPago no configurado (Falta Key)");
+        console.error("Error al inicializar Mercado Pago:", error);
     }
 });
