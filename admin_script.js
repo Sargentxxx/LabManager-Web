@@ -1,12 +1,12 @@
 // --- CONFIGURACIÓN FIREBASE ---
 const firebaseConfig = {
-    // ⚠️ REEMPLAZAR CON TUS DATOS DE FIREBASE
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_PROYECTO.firebaseapp.com",
-    projectId: "TU_PROYECTO_ID",
-    storageBucket: "TU_PROYECTO.appspot.com",
-    messagingSenderId: "TU_SENDER_ID",
-    appId: "TU_APP_ID"
+    apiKey: "AIzaSyAcyU31FdgWyQZrLdu6P-G0K7mQwV4sY4A",
+    authDomain: "labmanager-ventas.firebaseapp.com",
+    projectId: "labmanager-ventas",
+    storageBucket: "labmanager-ventas.firebasestorage.app",
+    messagingSenderId: "340778088741",
+    appId: "1:340778088741:web:38e2ac671efb32cfccc2cc",
+    measurementId: "G-65DS1C7YZB"
 };
 
 // Initialize Firebase if config is present
