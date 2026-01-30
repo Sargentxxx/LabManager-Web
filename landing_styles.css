@@ -928,6 +928,15 @@ body {
   .pricing-grid {
     grid-template-columns: 1fr;
     padding: 0 1rem;
+    gap: 3rem; /* Más espacio entre tarjetas en móvil */
+  }
+
+  .pricing-card {
+    padding: 1.5rem !important; /* Menos relleno lateral en móvil para ganar espacio */
+  }
+
+  .mercadopago-button {
+    min-height: 55px !important; /* Un poco más alto en móvil para facilitar el clic táctil */
   }
 
   .contact-grid {
