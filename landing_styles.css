@@ -949,95 +949,99 @@ body {
 }
 
 
-/* Mercado Pago Buttons - Premium Redesign */
+/* Mercado Pago Official Button Style */
 .btn-mercadopago {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 12px;
   width: 100%;
-  padding: 1.125rem 2rem;
+  padding: 12px 24px;
   margin-top: 1.5rem;
-  
-  /* Estética Premium: Gradiente con profundidad */
-  background: linear-gradient(135deg, #009EE3 0%, #007eb5 100%);
+  background-color: #009EE3; /* Official Mercado Pago Blue */
   color: white;
-  font-weight: 700;
-  font-size: 1rem;
+  font-family: "Proxima Nova", -apple-system, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
   border: none;
-  border-radius: 12px;
+  border-radius: 6px;
   cursor: pointer;
-  
-  /* Sombra suave y moderna */
-  box-shadow: 0 10px 20px -5px rgba(0, 158, 227, 0.4);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  overflow: hidden; /* Para el efecto de brillo */
-}
-
-/* Efecto Shimmer (Brillo animado) */
-.btn-mercadopago::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    to bottom right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 40%,
-    rgba(255, 255, 255, 0.4) 50%,
-    rgba(255, 255, 255, 0) 60%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: rotate(45deg);
-  transition: none;
-  animation: shimmer 4s infinite;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-150%) rotate(45deg); }
-  20%, 100% { transform: translateX(150%) rotate(45deg); }
+  transition: background-color 0.2s ease-in-out;
+  text-decoration: none;
+  line-height: 1.2;
 }
 
 .btn-mercadopago:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 15px 30px -8px rgba(0, 158, 227, 0.6);
-  background: linear-gradient(135deg, #00adef 0%, #008cc9 100%);
+  background-color: #0081bb; /* Slightly darker for hover */
+  transform: none; /* Remove excessively dynamic transforms */
+  box-shadow: none;
 }
 
 .btn-mercadopago:active {
-  transform: translateY(-1px) scale(0.98);
+  background-color: #0073a6;
 }
 
-/* Versión Pro - Más lujosa */
-.btn-mercadopago-pro {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
-}
-
-.btn-mercadopago-pro:hover {
-  background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
-  box-shadow: 0 15px 30px -8px rgba(0, 0, 0, 0.5);
-  border-color: #009EE3;
+.mp-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .mp-icon-svg {
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  fill: currentColor;
+  width: 24px;
+  height: 24px;
 }
 
 .mp-secure-text {
-  font-size: 0.75rem;
-  color: var(--gray-500);
+  font-size: 13px;
+  color: #999;
   text-align: center;
-  margin-top: 0.75rem;
+  margin-top: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
-  opacity: 0.8;
+  gap: 4px;
+}
+
+/* Contenedor para forzar la simetría de Mercado Pago */
+.mp-container {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-top: 1.5rem !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Ajuste del botón generado por el script */
+.mercadopago-button {
+  width: 100% !important; /* Ahora el botón ocupará el 100% de su contenedor */
+  max-width: 100% !important;
+  min-height: 50px !important;
+  padding: 0 10px !important;
+  border-radius: 8px !important;
+  background-color: #009EE3 !important;
+  color: white !important;
+  font-family: var(--font-sans) !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  text-decoration: none !important;
+  border: none !important;
+  margin: 0 !important; /* Eliminamos todos los márgenes internos del botón */
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 10px rgba(0, 158, 227, 0.2) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+.mercadopago-button:hover {
+  background-color: #0081bb !important;
+  transform: translateY(-2px) !important;
 }
 
 /* Floating WhatsApp Button */
