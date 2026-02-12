@@ -177,7 +177,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Counter animation for stats
+// Animación de contador para estadísticas
 function animateCounter(element, target, duration = 2000) {
     let start = 0;
     const increment = target / (duration / 16);
@@ -193,7 +193,7 @@ function animateCounter(element, target, duration = 2000) {
     }, 16);
 }
 
-// Animate stats when they come into view
+// Animar estadísticas cuando entran en vista
 const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
