@@ -1034,54 +1034,60 @@ h6 {
 
 /* Footer */
 .footer {
-  background: var(--dark);
-  color: var(--gray-400);
-  padding: 4rem 0 2rem;
+  background: var(--primary);
+  color: var(--bg-light);
+  padding: 80px 0 40px;
 }
 
 .footer-content {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 3rem;
-  margin-bottom: 3rem;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
 }
 
 .footer-brand {
-  max-width: 300px;
+  max-width: 400px;
 }
 
 .footer-logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.brand-text {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--white);
-  margin-bottom: 1rem;
+  color: var(--bg-white) !important;
 }
 
 .footer-description {
-  font-size: 0.9375rem;
+  font-size: 0.95rem;
   line-height: 1.7;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .footer-column h4 {
-  color: var(--white);
-  font-size: 1rem;
+  color: var(--bg-white);
+  font-size: 1.1rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 24px;
 }
 
 .footer-column a {
   display: block;
-  color: var(--gray-400);
+  color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
-  margin-bottom: 0.75rem;
-  transition: color 0.3s;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
 }
 
 .footer-column a:hover {
   color: var(--primary-light);
+  transform: translateX(5px);
 }
 
 .footer-bottom {
