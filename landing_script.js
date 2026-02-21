@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('¡Pago completado con éxito por ' + details.payer.name.given_name + '! Gracias por su compra.');
             // Here you would typically trigger the download or license generation
             saveSale(details, 'Standard'); // Guardar en Firebase
-            window.location.href = "Instalador_LabManager_v3.exe";
+            window.location.href = "https://github.com/Sargentxxx/LabManager-Web/releases/latest/download/LabManager_Setup_v3.exe";
           });
         },
         onError: function (err) {
@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return actions.order.capture().then(function (details) {
             alert('¡Pago completado con éxito por ' + details.payer.name.given_name + '! Gracias por su compra.');
             saveSale(details, 'Pro'); // Guardar en Firebase
-            window.location.href = "Instalador_LabManager_v3.exe";
+            window.location.href = "https://github.com/Sargentxxx/LabManager-Web/releases/latest/download/LabManager_Setup_v3.exe";
           });
         },
         onError: function (err) {
@@ -342,3 +342,37 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error al inicializar Mercado Pago:", error);
     }
 });
+
+// ==============================
+// HERO IMAGE CAROUSEL
+// ==============================
+(function () {
+    const track = document.querySelector('.carousel-track');
+    const dots = document.querySelectorAll('.carousel-dot');
+    if (!track || dots.length === 0) return;
+
+    let current = 0;
+    const total = dots.length;
+
+    function goTo(index) {
+        current = (index + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    // Dot click
+    dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+    // Auto-rotate every 4 seconds
+    let timer = setInterval(() => goTo(current + 1), 4000);
+
+    // Pause on hover
+    const wrapper = document.querySelector('.carousel-wrapper');
+    if (wrapper) {
+        wrapper.addEventListener('mouseenter', () => clearInterval(timer));
+        wrapper.addEventListener('mouseleave', () => {
+            timer = setInterval(() => goTo(current + 1), 4000);
+        });
+    }
+})();
+

@@ -101,12 +101,29 @@
             </div>
           </div>
           <div class="hero-visual">
-            <div class="image-wrapper">
-              <img
-                src="dashboard_preview.jpg"
-                alt="Dashboard de LabManager"
-                class="hero-img"
-              />
+            <div class="image-wrapper carousel-wrapper">
+              <div class="carousel-track">
+                <img
+                  src="dashboard_preview.jpg"
+                  alt="Dashboard de LabManager"
+                  class="carousel-slide"
+                />
+                <img
+                  src="workshop_repair.jpg"
+                  alt="Taller de reparación de PCs"
+                  class="carousel-slide"
+                />
+                <img
+                  src="phone_repair.jpg"
+                  alt="Taller de reparación de celulares"
+                  class="carousel-slide"
+                />
+              </div>
+              <div class="carousel-dots">
+                <button class="carousel-dot active" data-index="0"></button>
+                <button class="carousel-dot" data-index="1"></button>
+                <button class="carousel-dot" data-index="2"></button>
+              </div>
             </div>
           </div>
         </div>
@@ -296,50 +313,103 @@
         </div>
 
         <div class="faq-grid">
-          <div class="faq-item">
-            <h3 class="faq-question">
-              ¿Necesito internet para usar el software?
-            </h3>
-            <p class="faq-answer">
-              No. El software funciona 100% offline. Solo necesitas internet si
-              quieres enviar presupuestos por WhatsApp.
-            </p>
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <div class="flip-icon">🌐</div>
+                <h3>¿Necesito internet?</h3>
+                <span class="flip-hint">Pasa el cursor →</span>
+              </div>
+              <div class="flip-card-back">
+                <p>
+                  No. El software funciona <strong>100% offline</strong>. Solo
+                  necesitas internet si quieres enviar presupuestos por
+                  WhatsApp.
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="faq-item">
-            <h3 class="faq-question">
-              ¿Puedo usar el software en varias computadoras?
-            </h3>
-            <p class="faq-answer">
-              Cada licencia es para una computadora. Si necesitas más, ofrecemos
-              descuentos por volumen.
-            </p>
+
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <div class="flip-icon">💻</div>
+                <h3>¿Varias computadoras?</h3>
+                <span class="flip-hint">Pasa el cursor →</span>
+              </div>
+              <div class="flip-card-back">
+                <p>
+                  Cada licencia es para una computadora. Si necesitas más,
+                  ofrecemos <strong>descuentos por volumen</strong>.
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="faq-item">
-            <h3 class="faq-question">¿Qué incluye el soporte técnico?</h3>
-            <p class="faq-answer">
-              Ayuda con instalación, configuración y uso del software.
-              Respondemos en menos de 24 horas.
-            </p>
+
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <div class="flip-icon">🎧</div>
+                <h3>¿Qué incluye el soporte?</h3>
+                <span class="flip-hint">Pasa el cursor →</span>
+              </div>
+              <div class="flip-card-back">
+                <p>
+                  Ayuda con instalación, configuración y uso. Respondemos en
+                  <strong>menos de 24 horas</strong>.
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="faq-item">
-            <h3 class="faq-question">¿Hay límite de órdenes o clientes?</h3>
-            <p class="faq-answer">
-              No. Puedes crear órdenes y clientes ilimitados. La base de datos
-              puede manejar miles sin problemas.
-            </p>
+
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <div class="flip-icon">📋</div>
+                <h3>¿Hay límite de órdenes?</h3>
+                <span class="flip-hint">Pasa el cursor →</span>
+              </div>
+              <div class="flip-card-back">
+                <p>
+                  <strong>No hay límite.</strong> Puedes crear órdenes y
+                  clientes ilimitados. La base de datos maneja miles sin
+                  problemas.
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="faq-item">
-            <h3 class="faq-question">¿Funciona en Windows 7?</h3>
-            <p class="faq-answer">
-              Sí. Compatible con Windows 7, 8, 10 y 11. Tanto 32 como 64 bits.
-            </p>
+
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <div class="flip-icon">🪟</div>
+                <h3>¿Funciona en Windows 7?</h3>
+                <span class="flip-hint">Pasa el cursor →</span>
+              </div>
+              <div class="flip-card-back">
+                <p>
+                  Sí. Compatible con <strong>Windows 7, 8, 10 y 11</strong>.
+                  Tanto 32 como 64 bits.
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="faq-item">
-            <h3 class="faq-question">¿Puedo exportar mis datos?</h3>
-            <p class="faq-answer">
-              Sí. Todos tus datos están en una base de datos SQLite que puedes
-              respaldar y exportar fácilmente.
-            </p>
+
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <div class="flip-icon">💾</div>
+                <h3>¿Puedo exportar mis datos?</h3>
+                <span class="flip-hint">Pasa el cursor →</span>
+              </div>
+              <div class="flip-card-back">
+                <p>
+                  Sí. Tus datos están en una
+                  <strong>base de datos SQLite</strong> que puedes respaldar y
+                  exportar fácilmente.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -474,20 +544,26 @@
       </div>
     </footer>
 
-    <!-- Botón Oficial de WhatsApp Business -->
+    <!-- Botón Flotante de WhatsApp Profesional -->
     <a
       href="https://wa.me/543854982605?text=Hola,%20quisiera%20más%20información%20sobre%20LabManager"
-      class="whatsapp-button-official"
+      class="wa-float-btn"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chatear por WhatsApp"
     >
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-        alt="WhatsApp"
-        class="whatsapp-icon-official"
-      />
-      <span class="whatsapp-text">Chatea con nosotros</span>
+      <div class="wa-pulse"></div>
+      <svg
+        class="wa-icon"
+        viewBox="0 0 32 32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M16 0C7.163 0 0 7.163 0 16c0 2.834.741 5.494 2.036 7.8L0 32l8.418-2.006A15.923 15.923 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 01-6.764-1.845l-.484-.288-5.004 1.193 1.22-4.862-.316-.498A13.263 13.263 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.27-9.891c-.398-.199-2.355-1.162-2.72-1.295-.364-.133-.63-.199-.895.199-.265.398-1.028 1.295-1.26 1.56-.232.265-.464.299-.862.1-.398-.2-1.681-.62-3.2-1.977-1.183-1.056-1.982-2.361-2.214-2.759-.232-.398-.025-.613.175-.811.179-.178.398-.465.597-.697.2-.233.266-.399.399-.664.133-.266.067-.499-.033-.698-.1-.2-.896-2.16-1.228-2.958-.323-.776-.651-.672-.895-.684l-.762-.013c-.265 0-.696.1-1.061.499-.364.398-1.393 1.361-1.393 3.32 0 1.96 1.427 3.853 1.626 4.12.199.265 2.81 4.291 6.81 6.02.952.411 1.694.657 2.273.841.955.304 1.825.261 2.512.158.766-.114 2.355-.963 2.686-1.893.332-.93.332-1.728.232-1.894-.1-.165-.365-.265-.763-.465z"
+          fill="#fff"
+        />
+      </svg>
+      <span class="wa-label">¡Escríbenos!</span>
     </a>
 
     <script src="landing_script.js"></script>
