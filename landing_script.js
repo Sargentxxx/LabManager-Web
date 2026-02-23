@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('¡Pago completado con éxito por ' + details.payer.name.given_name + '! Gracias por su compra.');
             // Here you would typically trigger the download or license generation
             saveSale(details, 'Standard'); // Guardar en Firebase
-            window.location.href = "https://github.com/Sargentxxx/LabManager-Web/releases/latest/download/LabManager_Setup_v3.exe";
+            window.location.href = "https://github.com/Sargentxxx/LabManager-Web/releases/latest/download/Instalador_LabManager_v3.exe";
           });
         },
         onError: function (err) {
@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", function () {
           return actions.order.capture().then(function (details) {
             alert('¡Pago completado con éxito por ' + details.payer.name.given_name + '! Gracias por su compra.');
             saveSale(details, 'Pro'); // Guardar en Firebase
-            window.location.href = "https://github.com/Sargentxxx/LabManager-Web/releases/latest/download/LabManager_Setup_v3.exe";
+            window.location.href = "https://github.com/Sargentxxx/LabManager-Web/releases/latest/download/Instalador_LabManager_v3.exe";
           });
         },
         onError: function (err) {
