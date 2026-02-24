@@ -4,14 +4,12 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
-    <title>LabManager QR Scanner</title>
+    <title>LabManager Scanner</title>
     <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+
+    <!-- Dependencies -->
     <script
       src="https://unpkg.com/html5-qrcode"
       type="text/javascript"
@@ -21,171 +19,260 @@
   </head>
   <body>
     <div id="app-container">
-      <!-- HEADER -->
+      <!-- HEADER (Glassmorphism Sticky) -->
       <header class="header">
-        <h1 class="logo">LabManager</h1>
-        <button id="scan-new-btn-top" class="icon-btn hidden">
+        <div class="logo-container">
+          <span class="logo-subtitle">Taller QR Scanner</span>
+          <h1 class="logo">LabManager</h1>
+        </div>
+        <button
+          id="scan-new-btn-top"
+          class="icon-btn hidden"
+          aria-label="Nuevo Escaneo"
+        >
           <svg
             width="24"
             height="24"
             fill="none"
             stroke="currentColor"
+            stroke-width="2.5"
             viewBox="0 0 24 24"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
-            ></path>
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
-            ></path>
+            <path d="M4 7V4h3M20 7V4h-3M4 17v3h3M20 17v3h-3M9 9h6v6H9z"></path>
           </svg>
         </button>
       </header>
 
-      <!-- SCANNER VIEW -->
-      <div id="scanner-view" class="view active">
+      <!-- ================= SCANNER VIEW ================= -->
+      <main id="scanner-view" class="active animate-in">
+        <div class="scanner-header-text">
+          <h2>Cámara Lista</h2>
+          <p>Enfoca el código QR de la orden</p>
+        </div>
+
         <div class="scanner-wrapper">
-          <div id="reader-container">
+          <div class="scanner-inner">
             <div id="reader"></div>
           </div>
         </div>
 
-        <div class="scanner-instruction">
-          <p>Apunta la cámara al código QR generado en la orden.</p>
-        </div>
         <div class="scanner-footer">
-          <button id="enter-manual-btn" class="text-btn">
-            Ingresar ID Manualmente
-          </button>
-        </div>
-      </div>
-
-      <!-- DETAILS VIEW -->
-      <div id="details-view" class="view hidden">
-        <!-- Loading Indicator -->
-        <div id="loading-spinner" class="hidden">
-          <div class="spinner"></div>
-          <p>Buscando orden...</p>
-        </div>
-
-        <div id="details-content" class="cards-container">
-          <div class="card client-card">
-            <div class="card-header">
-              <h2>Información del Cliente</h2>
-            </div>
-            <div class="card-content">
-              <p class="data-row">
-                <span class="label">Nombre</span>
-                <span id="client-name" class="value">-</span>
-              </p>
-              <p class="data-row">
-                <span class="label">Teléfono</span>
-                <span id="client-phone" class="value">-</span>
-              </p>
-              <p class="data-row">
-                <span class="label">Email</span>
-                <span id="client-email" class="value">-</span>
-              </p>
-            </div>
-            <button id="msg-client-btn" class="fab-whatsapp">
-              <svg
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                height="20"
-                width="20"
-              >
-                <path
-                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"
-                />
-              </svg>
-              Mensaje
-            </button>
-          </div>
-
-          <div class="card case-card">
-            <div class="card-header">
-              <h2>Detalles del Equipo</h2>
-              <span id="case-status" class="badge">Buscando...</span>
-            </div>
-            <div class="card-content">
-              <p class="data-row">
-                <span class="label">Equipo</span>
-                <span id="case-device" class="value">-</span>
-              </p>
-              <p class="data-row">
-                <span class="label">N° Serie</span>
-                <span id="case-sn" class="value">-</span>
-              </p>
-              <div class="block-row">
-                <span class="label block">Falla Declarada</span>
-                <span id="case-issue" class="value block-value">-</span>
-              </div>
-              <div id="diagnosis-container" class="block-row hidden">
-                <span class="label block">Diagnóstico</span>
-                <span id="case-diagnosis" class="value block-value">-</span>
-              </div>
-              <div id="work-container" class="block-row hidden">
-                <span class="label block">Trabajo Realizado</span>
-                <span id="case-work" class="value block-value">-</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- HISTORY TIMELINE -->
-          <div class="timeline-section">
-            <h3>Historial del Caso</h3>
-            <div id="timeline-container" class="timeline">
-              <!-- Populated by JS -->
-            </div>
-          </div>
-        </div>
-
-        <!-- MAIN BOTTOM BUTTON -->
-        <div class="fab-container">
-          <button id="scan-new-btn-main" class="btn-primary">
+          <button id="enter-manual-btn" class="btn-ghost">
             <svg
               width="20"
               height="20"
               fill="none"
               stroke="currentColor"
+              stroke-width="2"
               viewBox="0 0 24 24"
-              style="margin-right: 8px"
             >
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 4v16m8-8H4"
+                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
               ></path>
             </svg>
-            Escanear Nuevo QR
+            Escribir Código Manual
           </button>
         </div>
-      </div>
-    </div>
+      </main>
 
-    <!-- Modal Input Manual -->
-    <div id="manual-modal" class="modal hidden">
-      <div class="modal-content">
-        <h3>Ingresar ID de Orden</h3>
-        <p>
-          Si el código QR está dañado, ingresa el número de orden de 4 dígitos
-          manualmente.
-        </p>
-        <input type="number" id="manual-id-input" placeholder="Ej: 1024" />
-        <div class="modal-actions">
-          <button id="cancel-manual-btn" class="btn-secondary">Cancelar</button>
-          <button id="submit-manual-btn" class="btn-primary">Buscar</button>
+      <!-- ================= DETAILS VIEW ================= -->
+      <section id="details-view" class="hidden">
+        <!-- LOADING STATE -->
+        <div id="loading-state" class="hidden animate-in">
+          <div class="loader-pulse">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12a9 9 0 11-6.219-8.56"></path>
+            </svg>
+          </div>
+          <h2>Conectando a la Nube...</h2>
+          <p>Sincronizando caso con LabManager</p>
+        </div>
+
+        <!-- ACTUAL DATA CONTENT -->
+        <div id="details-content" class="hidden animate-in">
+          <!-- HERO STATUS PILL -->
+          <div class="status-hero">
+            <div class="status-hero-id">
+              ORDEN <span id="hero-order-id">#---</span>
+            </div>
+            <div
+              id="case-status"
+              class="badge-large status-pending-bg status-pending-text"
+            >
+              BUSCANDO...
+            </div>
+          </div>
+
+          <!-- CLIENT CARD -->
+          <article class="glass-card">
+            <button
+              id="msg-client-btn"
+              class="btn-whatsapp"
+              aria-label="Mensaje WhatsApp"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"
+                />
+              </svg>
+            </button>
+
+            <h3 class="card-title">
+              <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                ></path>
+              </svg>
+              Datos del Cliente
+            </h3>
+
+            <div class="data-grid">
+              <div class="data-group">
+                <span class="data-label">Nombre Completo</span>
+                <span id="client-name" class="data-value highlight">-</span>
+              </div>
+              <div class="data-group">
+                <span class="data-label">Teléfono</span>
+                <span id="client-phone" class="data-value">-</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- DEVICE CARD -->
+          <article class="glass-card">
+            <h3 class="card-title">
+              <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                ></path>
+              </svg>
+              Información del Equipo
+            </h3>
+
+            <div class="data-grid">
+              <div class="data-group">
+                <span class="data-label">Modelo</span>
+                <span id="case-device" class="data-value highlight">-</span>
+              </div>
+              <div class="data-group">
+                <span class="data-label">Problema Declarado</span>
+                <div class="data-block"><p id="case-issue">-</p></div>
+              </div>
+
+              <div id="diagnosis-container" class="data-group hidden">
+                <span class="data-label">Diagnóstico del Técnico</span>
+                <div class="data-block"><p id="case-diagnosis">-</p></div>
+              </div>
+
+              <div id="work-container" class="data-group hidden">
+                <span class="data-label">Trabajo Realizado</span>
+                <div class="data-block"><p id="case-work">-</p></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- HISTORY TIMELINE -->
+          <article class="glass-card">
+            <h3 class="card-title">
+              <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              Historial del Caso
+            </h3>
+            <div id="timeline-container" class="timeline">
+              <!-- Populated dynamically via JS -->
+            </div>
+          </article>
+        </div>
+        <!-- End actual content -->
+      </section>
+
+      <!-- STATIC BOTTOM BAR (FAB) -->
+      <div id="bottom-action-bar" class="bottom-action-bar hidden">
+        <button id="scan-new-btn-main" class="btn-scan-again">
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            viewBox="0 0 24 24"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M4 7V4h3M20 7V4h-3M4 17v3h3M20 17v3h-3M9 9h6v6H9z"></path>
+          </svg>
+          Buscar Otro Equipo
+        </button>
+      </div>
+
+      <!-- MODAL OVERLAY -->
+      <div id="manual-modal" class="modal-overlay">
+        <div class="modal-card">
+          <h3>Buscar por Código</h3>
+          <p>
+            Ingresa el número de orden (ID) que aparece en el PDF del sistema.
+          </p>
+          <input
+            type="number"
+            id="manual-id-input"
+            class="input-huge"
+            placeholder="Ej: 1024"
+          />
+
+          <div class="modal-actions">
+            <button id="cancel-manual-btn" class="btn-secondary">
+              Cancelar
+            </button>
+            <button id="submit-manual-btn" class="btn-primary-small">
+              Buscar Nube
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
-    <script src="app.min.js"></script>
+    <!-- Scripts -->
+    <script src="app.js"></script>
   </body>
 </html>
