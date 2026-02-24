@@ -7,6 +7,9 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
     <title>LabManager Scanner</title>
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="apple-touch-icon" href="./icon-192.png" />
+    <meta name="theme-color" content="#4338ca" />
     <link rel="stylesheet" href="style.css" />
 
     <!-- Dependencies -->
@@ -266,6 +269,25 @@
             </button>
             <button id="submit-manual-btn" class="btn-primary-small">
               Buscar Nube
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PWA INSTALL MODAL -->
+      <div id="install-modal" class="modal-overlay">
+        <div class="modal-card">
+          <h3>📲 Instalar Aplicación</h3>
+          <p>
+            Añade el Scanner a la pantalla de inicio de tu celular para acceder
+            en 1 segundo y tener modo pantalla completa.
+          </p>
+          <div class="modal-actions">
+            <button id="cancel-install-btn" class="btn-secondary">
+              Más Tarde
+            </button>
+            <button id="confirm-install-btn" class="btn-primary-small">
+              Aprobar
             </button>
           </div>
         </div>
