@@ -137,7 +137,17 @@ function fetchOrderFromFirestore(orderId) {
         }
     }).catch((error) => {
         console.error("Error al buscar orden:", error);
-        alert("Error de conexión. Verifica tu internet.");
+        
+        let msg = "Error de conexión. Verifica tu internet.";
+        if (error.code === 'permission-denied') {
+            msg = "Error de permisos en Firebase. Verifica las reglas de seguridad.";
+        } else if (error.message && error.message.includes('Firestore API has not been used')) {
+            msg = "El servicio de Base de Datos (Cloud Firestore) no está activado en tu proyecto de Firebase.";
+        } else if (error.code === 'unavailable') {
+            msg = "El servicio de Firebase no está disponible momentáneamente.";
+        }
+        
+        alert(msg + "\nDetalle: " + (error.code || error.message));
         resetToScanner();
     });
 }
