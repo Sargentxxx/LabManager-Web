@@ -11,6 +11,28 @@
       name="keywords"
       content="software taller, gestión reparaciones, taller computadoras, software técnico"
     />
+
+    <!-- Política de Seguridad de Contenidos (CSP) -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.paypal.com https://sdk.mercadopago.com https://www.mercadopago.com.ar; frame-src 'self' https://www.paypal.com https://www.sandbox.paypal.com https://www.mercadopago.com.ar; img-src 'self' data: https://www.paypalobjects.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://firestore.googleapis.com https://www.paypal.com;"
+    />
+
+    <!-- Open Graph (SEO y compartición atractiva en WhatsApp/Redes) -->
+    <meta
+      property="og:title"
+      content="LabManager - Software de Taller Profesional"
+    />
+    <meta
+      property="og:description"
+      content="Controla órdenes, inventario y presupuestos de tu servicio técnico fácilmente."
+    />
+    <meta property="og:image" content="dashboard_preview.jpg" />
+    <meta property="og:type" content="website" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="labmanager_logo.png" />
+
     <title>LabManager - Software de Gestión para Talleres de Reparación</title>
     <!-- Fuentes: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -575,7 +597,18 @@
               <div class="contact-icon">📧</div>
               <div class="contact-details">
                 <h4>Email</h4>
-                <p>alberto_garcia82@hotmail.com</p>
+                <!-- El correo está ofuscado para evitar bots de scrapers. Usamos un enlace generable. -->
+                <p>
+                  <a
+                    href="#"
+                    onclick="
+                      this.href =
+                        'mailto:' + 'alberto_garcia82' + '@' + 'hotmail.com'
+                    "
+                    style="color: inherit; text-decoration: none"
+                    >alberto_g... @hotmail.com</a
+                  >
+                </p>
               </div>
             </div>
 
@@ -597,7 +630,11 @@
           </div>
 
           <div class="contact-form">
-            <form>
+            <!-- Conectado a Formspree (reemplazar la URL por tu ID de Formspree real si lo tenés) -->
+            <form
+              action="https://formspree.io/f/REEMPLAZAR_POR_TU_ID"
+              method="POST"
+            >
               <input type="text" name="nombre" placeholder="Nombre" required />
               <input type="email" name="email" placeholder="Email" required />
               <input type="tel" name="telefono" placeholder="Teléfono" />

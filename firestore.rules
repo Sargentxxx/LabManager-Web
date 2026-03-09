@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Reglas para la colección 'orders'
+    match /orders/{orderId} {
+      // El scanner app es público en teoría (PWA).  
+      // Si la PWA tiene Login de Técnicos:
+      // allow read: if request.auth != null;
+      
+      // Dado que ahora la PWA no tiene login, y queremos evitar lectura masiva de bots
+      // pero permitir escanear UN código específico, deberíamos restringir 
+      // queries (listar todos) y solo permitir lectura por ID específico si tenemos un campo secreto (como el número de orden o hash del QR).
+      // Por el momento, bloqueamos ESCRITURA siempre.
+      
+      // Permitir leer la orden si conocen exactamente el ID (no listar todas)
+      allow get: if true; 
+      // Prohibir queries masivos de todas las ordenes
+      allow list: if false; 
+      
+      allow write: if false; 
+    }
+  }
+}
