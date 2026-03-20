@@ -122,23 +122,35 @@ function showDetailsForOrder(orderId) {
 
 function fetchOrderFromFirestore(orderId) {
     const ordersRef = db.collection("orders");
-    const idStr = String(orderId);
+    const idStr = String(orderId).trim();
+    const idNum = parseInt(idStr);
 
-    // Step 1: Try Direct Doc ID
+    // Step 1: Direct ID
     ordersRef.doc(idStr).get().then((doc) => {
-        if (doc.exists) {
-            handleOrderSuccess(orderId, doc.data());
-        } else {
-            // Step 2: Try Doc ID with # prefix (common in manual sync)
-            ordersRef.doc(`#${idStr}`).get().then((docHash) => {
-                if (docHash.exists) {
-                    handleOrderSuccess(orderId, docHash.data());
-                } else {
-                    // Step 3: Deep search by fields (fallback for random Doc IDs)
-                    searchByFields(orderId);
-                }
+        if (doc.exists) return handleOrderSuccess(orderId, doc.data());
+        
+        // Step 2: Hash prefix (#13)
+        ordersRef.doc(`#${idStr}`).get().then((docH) => {
+            if (docH.exists) return handleOrderSuccess(orderId, docH.data());
+            
+            // Step 3: Zero Padding fallbacks (013, 0013, 00013)
+            const paddedId2 = idStr.padStart(2, '0');
+            const paddedId3 = idStr.padStart(3, '0');
+            const paddedId4 = idStr.padStart(4, '0');
+            
+            ordersRef.doc(paddedId2).get().then((d2) => {
+                if (d2.exists) return handleOrderSuccess(orderId, d2.data());
+                ordersRef.doc(paddedId3).get().then((d3) => {
+                    if (d3.exists) return handleOrderSuccess(orderId, d3.data());
+                    ordersRef.doc(paddedId4).get().then((d4) => {
+                        if (d4.exists) return handleOrderSuccess(orderId, d4.data());
+                        
+                        // If everything fails, deep search by fields
+                        searchByFields(orderId);
+                    });
+                });
             });
-        }
+        });
     }).catch(handleFirestoreError);
 }
 
@@ -170,8 +182,12 @@ function searchByFields(orderId) {
                     ordersRef.where("numero", "==", idNum).limit(1).get().then((q5) => {
                         if (!q5.empty) return handleOrderSuccess(orderId, q5.docs[0].data());
                         
-                        alert(`No se encontró el caso #${orderId} en la nube.\n\nEs posible que los datos aún no se hayan sincronizado desde LabManager Desktop o que el tipo de ID no coincida.`);
-                        resetToScanner();
+                        ordersRef.where("case_id", "==", idNum).limit(1).get().then((q6) => {
+                            if (!q6.empty) return handleOrderSuccess(orderId, q6.docs[0].data());
+
+                            alert(`No se encontró el caso #${orderId} en la nube.\n\nEs posible que los datos aún no se hayan sincronizado desde LabManager Desktop o que el tipo de ID no coincida.`);
+                            resetToScanner();
+                        }).catch(handleFirestoreError);
                     }).catch(handleFirestoreError);
                 }).catch(handleFirestoreError);
             }).catch(handleFirestoreError);
