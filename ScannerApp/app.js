@@ -143,23 +143,39 @@ function fetchOrderFromFirestore(orderId) {
 }
 
 function searchByFields(orderId) {
-    const numId = parseInt(orderId);
     const ordersRef = db.collection("orders");
+    const idStr = String(orderId).trim();
+    const idNum = parseInt(idStr);
 
-    // Try common field names for numeric IDs
-    ordersRef.where("order_id", "==", numId).limit(1).get().then((querySnapshot) => {
-        if (!querySnapshot.empty) {
-            handleOrderSuccess(orderId, querySnapshot.docs[0].data());
-        } else {
-            ordersRef.where("id", "==", numId).limit(1).get().then((q2) => {
-                if (!q2.empty) {
-                    handleOrderSuccess(orderId, q2.docs[0].data());
-                } else {
-                    alert(`No se encontró el caso #${orderId} en la nube.\n\nVerifica que LabManager Desktop haya sincronizado correctamente.`);
-                    resetToScanner();
-                }
-            });
-        }
+    console.log(`Searching globally for: "${idStr}" (string) and ${idNum} (number)...`);
+
+    // We chain multiple attempts to find it in any common field
+    // Attempt A: order_id (number)
+    ordersRef.where("order_id", "==", idNum).limit(1).get().then((q1) => {
+        if (!q1.empty) return handleOrderSuccess(orderId, q1.docs[0].data());
+        
+        // Attempt B: order_id (string)
+        ordersRef.where("order_id", "==", idStr).limit(1).get().then((q2) => {
+            if (!q2.empty) return handleOrderSuccess(orderId, q2.docs[0].data());
+            
+            // Attempt C: id (number)
+            ordersRef.where("id", "==", idNum).limit(1).get().then((q3) => {
+                if (!q3.empty) return handleOrderSuccess(orderId, q3.docs[0].data());
+                
+                // Attempt D: id (string)
+                ordersRef.where("id", "==", idStr).limit(1).get().then((q4) => {
+                    if (!q4.empty) return handleOrderSuccess(orderId, q4.docs[0].data());
+                    
+                    // Final Attempt: case_number (string/number)
+                    ordersRef.where("numero", "==", idNum).limit(1).get().then((q5) => {
+                        if (!q5.empty) return handleOrderSuccess(orderId, q5.docs[0].data());
+                        
+                        alert(`No se encontró el caso #${orderId} en la nube.\n\nEs posible que los datos aún no se hayan sincronizado desde LabManager Desktop o que el tipo de ID no coincida.`);
+                        resetToScanner();
+                    }).catch(handleFirestoreError);
+                }).catch(handleFirestoreError);
+            }).catch(handleFirestoreError);
+        }).catch(handleFirestoreError);
     }).catch(handleFirestoreError);
 }
 
