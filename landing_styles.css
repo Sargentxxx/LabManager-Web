@@ -1287,34 +1287,29 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
   width: 100%;
-  padding: 12px 24px;
-  margin-top: 1.5rem;
-  background-color: #009ee3; /* Official Mercado Pago Blue */
-  color: white;
-  font-family:
-    "Proxima Nova",
-    -apple-system,
-    "Helvetica Neue",
-    Helvetica,
-    Roboto,
-    Arial,
-    sans-serif;
-  font-weight: 600;
-  font-size: 16px;
+  padding: 14px 24px;
+  margin-top: 1rem;
+  background-color: #fbd610; /* Mercado Pago Yellow */
+  color: #1a1e56; /* Mercado Pago Navy */
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: all 0.3s ease;
   text-decoration: none;
-  line-height: 1.2;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .btn-mercadopago:hover {
-  background-color: #0081bb; /* Slightly darker for hover */
-  transform: none; /* Remove excessively dynamic transforms */
-  box-shadow: none;
+  background-color: #f9d20c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-mercadopago img {
+  height: 28px !important;
+  width: auto !important;
+  display: block;
 }
 
 .btn-mercadopago:active {
@@ -1622,22 +1617,14 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  color: var(--text-main);
+  color: var(--accent);
   box-shadow: var(--shadow-sm);
   transition: all 0.3s ease;
 }
 
-.step-info h3 {
-  font-size: 1.15rem;
-  margin-bottom: 6px;
-  transition: color 0.3s;
-}
-
-.step-info p {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.5;
+.step-icon svg {
+  width: 24px;
+  height: 24px;
 }
 
 /* Mockup CSS */
@@ -1659,12 +1646,12 @@ h6 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 120%;
-  height: 120%;
+  width: 140%;
+  height: 140%;
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(226, 232, 240, 0.8) 0%,
+    rgba(59, 130, 246, 0.1) 0%,
     transparent 70%
   );
   z-index: 0;
@@ -1675,10 +1662,10 @@ h6 {
   width: 100%;
   height: 100%;
   background: #0f172a;
-  border-radius: 48px;
-  border: 10px solid #1e293b;
+  border-radius: 54px;
+  border: 12px solid #1e293b;
   box-shadow:
-    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 50px 100px -20px rgba(0, 0, 0, 0.5),
     0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   z-index: 10;
   overflow: hidden;
@@ -1689,11 +1676,11 @@ h6 {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 140px;
-  height: 30px;
+  width: 120px;
+  height: 28px;
   background: #1e293b;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
   z-index: 20;
 }
 
@@ -1713,8 +1700,8 @@ h6 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.8;
-  filter: blur(2px) grayscale(50%);
+  opacity: 0.7;
+  filter: brightness(0.8) contrast(1.1);
 }
 
 .scanning-ui {
@@ -1723,16 +1710,24 @@ h6 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 24px;
+  padding: 30px 24px;
   z-index: 10;
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 23, 42, 0.4) 0%,
+    transparent 20%,
+    transparent 80%,
+    rgba(15, 23, 42, 0.4) 100%
+  );
 }
 
 .scan-header {
-  margin-top: 32px;
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  opacity: 0.8;
 }
 
 .scan-box-wrapper {
@@ -1740,15 +1735,17 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
 .scan-box {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
-  border-radius: 24px;
-  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
+  border-radius: 28px;
+  box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.7);
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .scan-corners .corner {
@@ -1757,97 +1754,111 @@ h6 {
   height: 40px;
   border-color: var(--primary-light);
   border-style: solid;
+  z-index: 5;
 }
 
 .corner.top-left {
   top: 0;
   left: 0;
-  border-width: 4px 0 0 4px;
-  border-top-left-radius: 24px;
+  border-width: 3px 0 0 3px;
+  border-top-left-radius: 20px;
 }
 
 .corner.top-right {
   top: 0;
   right: 0;
-  border-width: 4px 4px 0 0;
-  border-top-right-radius: 24px;
+  border-width: 3px 3px 0 0;
+  border-top-right-radius: 20px;
 }
 
 .corner.bottom-left {
   bottom: 0;
   left: 0;
-  border-width: 0 0 4px 4px;
-  border-bottom-left-radius: 24px;
+  border-width: 0 0 3px 3px;
+  border-bottom-left-radius: 20px;
 }
 
 .corner.bottom-right {
   bottom: 0;
   right: 0;
-  border-width: 0 4px 4px 0;
-  border-bottom-right-radius: 24px;
+  border-width: 0 3px 3px 0;
+  border-bottom-right-radius: 20px;
 }
 
 .scan-line {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--primary-light);
-  box-shadow: 0 0 15px 2px rgba(56, 189, 248, 0.8);
-  animation: scan 2.5s ease-in-out infinite;
+  left: -10%;
+  width: 120%;
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--primary-light),
+    white,
+    var(--primary-light),
+    transparent
+  );
+  box-shadow:
+    0 0 20px 4px rgba(56, 189, 248, 0.6),
+    0 0 40px 10px rgba(56, 189, 248, 0.2);
+  z-index: 4;
+  animation: scan 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 @keyframes scan {
-  0%,
-  100% {
-    top: 10%;
+  0% {
+    top: 5%;
     opacity: 0;
   }
-  15%,
+  15% {
+    opacity: 1;
+  }
   85% {
     opacity: 1;
   }
-  50% {
-    top: 90%;
+  100% {
+    top: 95%;
+    opacity: 0;
   }
 }
 
 .scan-result-card {
-  margin-bottom: 16px;
-  background: rgba(255, 255, 255, 0.9);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  padding: 16px;
-  border-radius: 16px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  padding: 16px 20px;
+  border-radius: 20px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  gap: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   transform: translateY(0);
-  animation: float-card 4s ease-in-out infinite;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  animation: pop-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-@keyframes float-card {
-  0%,
-  100% {
-    transform: translateY(0);
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
   }
-  50% {
-    transform: translateY(-5px);
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
 .result-icon {
-  width: 40px;
-  height: 40px;
-  background: rgba(59, 130, 246, 0.1);
-  color: var(--accent);
-  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  background: white;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .result-info {
@@ -1855,27 +1866,46 @@ h6 {
 }
 
 .result-info h4 {
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin-bottom: 2px;
-  color: var(--secondary);
+  color: var(--primary);
+  font-weight: 700;
 }
 
 .result-info p {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
+  font-weight: 500;
 }
 
 .result-status {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #dcfce7;
-  color: #16a34a;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
-  font-weight: bold;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #10b981;
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
 }
 
 @media (max-width: 600px) {
