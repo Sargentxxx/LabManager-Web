@@ -58,33 +58,35 @@ function initScanner() {
 }
 
 function onScanSuccess(decodedText, decodedResult) {
-    // Expected format: "Orden: X | Cliente: Y..."
+    console.log("QR Scanned:", decodedText);
     let orderId = null;
     
+    // Pattern discovery logic
     if (decodedText.toLowerCase().includes('orden:')) {
         const parts = decodedText.split('|');
         const orderPart = parts[0].trim();
         const idMatch = orderPart.match(/\d+/);
-        if (idMatch) {
+        if (idMatch) orderId = idMatch[0];
+    } else {
+        // Just look for numbers anywhere if it's a short string, or trim it
+        const idMatch = decodedText.match(/\d+/);
+        if (idMatch && decodedText.length < 20) {
             orderId = idMatch[0];
+        } else {
+            orderId = decodedText.trim();
         }
-    } else if (!isNaN(parseInt(decodedText))) {
-        orderId = decodedText.trim();
     }
     
     if (orderId) {
         if (html5QrCode.isScanning) {
             html5QrCode.stop().then(() => {
                 showDetailsForOrder(orderId);
-            }).catch(err => {
-                console.error("Error al detener cámara:", err);
-                showDetailsForOrder(orderId);
-            });
+            }).catch(() => showDetailsForOrder(orderId));
         } else {
             showDetailsForOrder(orderId);
         }
     } else {
-        alert("Código QR no válido para LabManager.");
+        alert("Código QR no reconocido. Intenta centrarlo mejor.");
     }
 }
 
@@ -119,37 +121,63 @@ function showDetailsForOrder(orderId) {
 }
 
 function fetchOrderFromFirestore(orderId) {
-    db.collection("orders").doc(String(orderId)).get().then((doc) => {
+    const ordersRef = db.collection("orders");
+    const idStr = String(orderId);
+
+    // Step 1: Try Direct Doc ID
+    ordersRef.doc(idStr).get().then((doc) => {
         if (doc.exists) {
-            const data = doc.data();
-            populateUI(orderId, data);
-            
-            // Switch views with delay for smooth animation
-            setTimeout(() => {
-                loadingState.classList.add('hidden');
-                detailsContent.classList.remove('hidden');
-                bottomActionBar.classList.remove('hidden');
-            }, 600);
-            
+            handleOrderSuccess(orderId, doc.data());
         } else {
-            alert(`No se encontró el caso #${orderId} en la nube. Puede que no esté sincronizado o que LabManager no tenga versión Pro.`);
-            resetToScanner();
+            // Step 2: Try Doc ID with # prefix (common in manual sync)
+            ordersRef.doc(`#${idStr}`).get().then((docHash) => {
+                if (docHash.exists) {
+                    handleOrderSuccess(orderId, docHash.data());
+                } else {
+                    // Step 3: Deep search by fields (fallback for random Doc IDs)
+                    searchByFields(orderId);
+                }
+            });
         }
-    }).catch((error) => {
-        console.error("Error al buscar orden:", error);
-        
-        let msg = "Error de conexión. Verifica tu internet.";
-        if (error.code === 'permission-denied') {
-            msg = "Error de permisos en Firebase. Verifica las reglas de seguridad.";
-        } else if (error.message && error.message.includes('Firestore API has not been used')) {
-            msg = "El servicio de Base de Datos (Cloud Firestore) no está activado en tu proyecto de Firebase.";
-        } else if (error.code === 'unavailable') {
-            msg = "El servicio de Firebase no está disponible momentáneamente.";
+    }).catch(handleFirestoreError);
+}
+
+function searchByFields(orderId) {
+    const numId = parseInt(orderId);
+    const ordersRef = db.collection("orders");
+
+    // Try common field names for numeric IDs
+    ordersRef.where("order_id", "==", numId).limit(1).get().then((querySnapshot) => {
+        if (!querySnapshot.empty) {
+            handleOrderSuccess(orderId, querySnapshot.docs[0].data());
+        } else {
+            ordersRef.where("id", "==", numId).limit(1).get().then((q2) => {
+                if (!q2.empty) {
+                    handleOrderSuccess(orderId, q2.docs[0].data());
+                } else {
+                    alert(`No se encontró el caso #${orderId} en la nube.\n\nVerifica que LabManager Desktop haya sincronizado correctamente.`);
+                    resetToScanner();
+                }
+            });
         }
-        
-        alert(msg + "\nDetalle: " + (error.code || error.message));
-        resetToScanner();
-    });
+    }).catch(handleFirestoreError);
+}
+
+function handleOrderSuccess(orderId, data) {
+    populateUI(orderId, data);
+    setTimeout(() => {
+        loadingState.classList.add('hidden');
+        detailsContent.classList.remove('hidden');
+        bottomActionBar.classList.remove('hidden');
+    }, 600);
+}
+
+function handleFirestoreError(error) {
+    console.error("Firestore Error:", error);
+    let msg = "Error de conexión con la base de datos.";
+    if (error.code === 'permission-denied') msg = "Acceso denegado (Reglas de Seguridad).";
+    alert(`${msg}\nDetalle: ${error.message || error.code}`);
+    resetToScanner();
 }
 
 function populateUI(orderId, data) {
