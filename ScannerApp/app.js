@@ -161,38 +161,40 @@ function searchByFields(orderId) {
 
     console.log(`Searching globally for: "${idStr}" (string) and ${idNum} (number)...`);
 
-    // We chain multiple attempts to find it in any common field
-    // Attempt A: order_id (number)
-    ordersRef.where("order_id", "==", idNum).limit(1).get().then((q1) => {
-        if (!q1.empty) return handleOrderSuccess(orderId, q1.docs[0].data());
-        
-        // Attempt B: order_id (string)
-        ordersRef.where("order_id", "==", idStr).limit(1).get().then((q2) => {
-            if (!q2.empty) return handleOrderSuccess(orderId, q2.docs[0].data());
-            
-            // Attempt C: id (number)
-            ordersRef.where("id", "==", idNum).limit(1).get().then((q3) => {
-                if (!q3.empty) return handleOrderSuccess(orderId, q3.docs[0].data());
-                
-                // Attempt D: id (string)
-                ordersRef.where("id", "==", idStr).limit(1).get().then((q4) => {
-                    if (!q4.empty) return handleOrderSuccess(orderId, q4.docs[0].data());
-                    
-                    // Final Attempt: case_number (string/number)
-                    ordersRef.where("numero", "==", idNum).limit(1).get().then((q5) => {
-                        if (!q5.empty) return handleOrderSuccess(orderId, q5.docs[0].data());
-                        
-                        ordersRef.where("case_id", "==", idNum).limit(1).get().then((q6) => {
-                            if (!q6.empty) return handleOrderSuccess(orderId, q6.docs[0].data());
+    // Array of fields to search in
+    const searchFields = ["order_id", "id", "numero", "case_id", "order_number", "case_number"];
+    
+    // We execute searches sequentially to avoid overwhelming Firestore 
+    // but fast enough for UX. 
+    // First, search all fields as Number (high priority)
+    // Then, search all fields as String (fallback)
+    
+    async function executeSearch() {
+        try {
+            // Priority 1: Search all as Number
+            if (!isNaN(idNum)) {
+                for (const field of searchFields) {
+                    const snap = await ordersRef.where(field, "==", idNum).limit(1).get();
+                    if (!snap.empty) return handleOrderSuccess(orderId, snap.docs[0].data());
+                }
+            }
 
-                            alert(`No se encontró el caso #${orderId} en la nube.\n\nEs posible que los datos aún no se hayan sincronizado desde LabManager Desktop o que el tipo de ID no coincida.`);
-                            resetToScanner();
-                        }).catch(handleFirestoreError);
-                    }).catch(handleFirestoreError);
-                }).catch(handleFirestoreError);
-            }).catch(handleFirestoreError);
-        }).catch(handleFirestoreError);
-    }).catch(handleFirestoreError);
+            // Priority 2: Search all as String
+            for (const field of searchFields) {
+                const snap = await ordersRef.where(field, "==", idStr).limit(1).get();
+                if (!snap.empty) return handleOrderSuccess(orderId, snap.docs[0].data());
+            }
+
+            // If we are here, nothing was found
+            const testedList = searchFields.join(', ');
+            alert(`ERROR: No se encontró el caso #${orderId} en la nube.\n\nBuscado como ID: "${idStr}", #${idNum}.\nCampos probados: ${testedList}.\n\nPor favor, verifica en LabManager Desktop si el caso figura como "Sincronizado".`);
+            resetToScanner();
+        } catch (error) {
+            handleFirestoreError(error);
+        }
+    }
+
+    executeSearch();
 }
 
 function handleOrderSuccess(orderId, data) {

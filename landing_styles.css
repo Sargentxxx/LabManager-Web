@@ -1908,6 +1908,40 @@ h6 {
   }
 }
 
+/* Mercado Pago Buttons */
+.mp-container {
+  margin-top: 15px;
+  width: 100%;
+}
+
+.btn-mercadopago {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #fff000;
+  color: #111;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+  width: 100%;
+}
+
+.btn-mercadopago:hover {
+  background-color: #f7e800;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-mercadopago img {
+  height: 20px;
+  width: auto;
+}
+
 @media (max-width: 600px) {
   .wa-float-btn {
     padding: 13px;

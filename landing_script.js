@@ -48,35 +48,8 @@ document.querySelectorAll('.feature-card, .pricing-card, .faq-item').forEach(el 
 });
 
 // Form submission (placeholder)
-const contactForm = document.querySelector('.contact-form form');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData);
-        
-        // Construct WhatsApp Message
-        const phoneNumber = '543854982605'; // Tu número
-        const text = `Hola, mi nombre es ${data.nombre}.
-Email: ${data.email}
-Teléfono: ${data.telefono || 'No especificado'}
-
-Mensaje: ${data.mensaje}
-
-(Enviado desde LabManager Web)`;
-
-        // Encode for URL
-        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
-        
-        // Open WhatsApp
-        window.open(url, '_blank');
-        
-        // Reset form
-        contactForm.reset();
-    });
-}
+// WhatsApp float button already handled by HTML
+console.log('Contact form now uses native action (Formspree Email)');
 
 // Add hover effect to stats
 document.querySelectorAll('.stat').forEach(stat => {

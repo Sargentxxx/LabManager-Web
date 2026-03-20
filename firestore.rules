@@ -12,10 +12,11 @@ service cloud.firestore {
       // queries (listar todos) y solo permitir lectura por ID específico si tenemos un campo secreto (como el número de orden o hash del QR).
       // Por el momento, bloqueamos ESCRITURA siempre.
       
-      // Permitir leer la orden si conocen exactamente el ID (no listar todas)
+      // Permitir leer la orden si conocen exactamente el ID
       allow get: if true; 
-      // Prohibir queries masivos de todas las ordenes
-      allow list: if false; 
+      
+      // Permitir búsquedas por campos internos (necesario para la Scanner App robusta)
+      allow list: if true; 
       
       allow write: if false; 
     }
